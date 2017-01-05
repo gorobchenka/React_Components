@@ -10,13 +10,26 @@
   <body>
     <div id="content"></div>
     <script type="text/babel">
+      var textInput ="";
       var Article = React.createClass({
+              getInitialState: function(){
+                return {
+                  displayText: "Hello, " + textInput
+                };
+              },
+
+              handleChange: function(event){
+                  this.textInput = event.target.value;
+                  this.setState({
+                    displayText: "Hello, " + this.textInput
+                  });
+              },
+
                render: function() {
                    return (
-                     <div>
-                       <h1> My {this.props.numApp} app on React js </h1>
-                       <div>Author: {this.props.author}</div>
-                       <p>{this.props.text} </p>
+                       <div>
+                          <input type="text" placeholder='Hello,Stranger' onChange={this.handleChange} />
+                          <div><span>{this.state.displayText } </span></div>
                        </div>
                       );
                }
@@ -24,10 +37,7 @@
 
         ReactDOM.render(
              <div>
-                <Article numApp="first" author="Olya" text="All only begin!" />
-                <Article numApp="the Best" author="Vova" text="Yet a lot of interesting waiting for us in this year!!" />
-                <Article numApp="Ordinary" author="Zoya" text="I;m very happy!" />
-                <Article numApp="first" author="Ginger" text="I like fishes!!!" />
+                <Article />
              </div>,
              document.getElementById('content')
         );
